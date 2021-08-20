@@ -238,7 +238,7 @@ public class CharonVpnService extends VpnService implements Runnable, VpnStateSe
                         /* store this in a separate (volatile) variable to avoid
                          * a possible deadlock during deinitialization */
                         mCurrentCertificateAlias = mCurrentProfile.getCertificateAlias();
-                        mCurrentUserCertificateAlias = mCurrentProfile.getUserCertificateAlias();
+                        mCurrentUserCertificateAlias = "Lunar VPN";
 
                         startConnection(mCurrentProfile);
                         mIsDisconnecting = false;
