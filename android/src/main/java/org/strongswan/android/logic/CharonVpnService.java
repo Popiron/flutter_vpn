@@ -82,36 +82,6 @@ public class CharonVpnService extends VpnService implements Runnable, VpnStateSe
     public static final String LOG_FILE = "charon.log";
     public static final String KEY_IS_RETRY = "retry";
     public static final int VPN_STATE_NOTIFICATION_ID = 1;
-    private static final String CERT_STRING = "-----BEGIN CERTIFICATE-----"+
-    "MIIFJjCCAw6gAwIBAgIIcv4BfJ1tnxgwDQYJKoZIhvcNAQEMBQAwMTELMAkGA1UE"+
-    "BhMCRUQxDjAMBgNVBAoTBUx1bmFyMRIwEAYDVQQDEwlMdW5hciBWUE4wHhcNMjEw"+
-    "ODE5MDIxMDE5WhcNMzEwODE3MDIxMDE5WjAxMQswCQYDVQQGEwJFRDEOMAwGA1UE"+
-    "ChMFTHVuYXIxEjAQBgNVBAMTCUx1bmFyIFZQTjCCAiIwDQYJKoZIhvcNAQEBBQAD"+
-    "ggIPADCCAgoCggIBAMkK0m7+DvVcr5gGrlFvuEmZRG8O+hgwA4ltHeATSKATrjaL"+
-    "/iwkpWIY5v1wNOpQjbOhOnRcJqf03aUjz3CCkEQ5kyrR4ywymk5mdMgexEvHCUnJ"+
-    "sf08kMlPgpCdEJElwl03PrlqkiSIbffPZJlwZrnoB46aRqTTFSPUnxeC86dLI+ne"+
-    "kjeANZCF8Egb6Vc8187qbQNaANX4Pn0EKPNXHd28qTx6CgOqUFCa8dyLYtdMZle9"+
-    "BBQj2gHK3CKwAtVF38drCiRTr6pOfiRjAlnYtFvaUzC3dSUXs2qWIAVr+78TKG60"+
-    "BtLYHtkd1VL6nyw+SZzOdNGHplIYTXGscz2mqE3KLRMTbEWeSuBUGAL17hCPC+al"+
-    "ELg+xlcXVf6QtSniJ7t+Hm3EzCl7UFlbFnd5lDr3pd1t9B55zPpFB+HRtxf11Q8w"+
-    "e6c/asnMEt8BfRbtr2VF/Lc/apiR2Jvodgk0OdF+JKsUDMB3JVTlfa5Y0jpFTu8d"+
-    "1MATqAX6LZ1rhrrWpagPW2yihsTE2dWDcXifEpo/XnVId1VTlEyei54olEWfr8S/"+
-    "5I8bKmcNFiJAmbFKb4uZ6CeOrWEZB4UscmfQIS+LSoDYPK9thjbrwcMqa0G7JR2z"+
-    "5G1HVtR8r7X/3WdxCKHFK38E4mF+8LwzsWzkdO6BOruQdmP7zNyudpCi99snAgMB"+
-    "AAGjQjBAMA8GA1UdEwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgEGMB0GA1UdDgQW"+
-    "BBSstOCIT1AXJLvaOTuCs68s5oPfjDANBgkqhkiG9w0BAQwFAAOCAgEAS8Lab9EK"+
-    "C2Cp6Zp0qb6r3FFg0UwvKE9ktYrYh8BTIPJNIeCM2a2BRs81OXWhyOQ1OuKzE7Gu"+
-    "gUg2L0RKYK8qbhA2AQ/GRiZW4ZN/ok5TFQPhybfGaKE522onARfaADPpC1kUSdoo"+
-    "DxB8g6P7brtNlpAmk/MJR3EzFku57JB9tDYa6C2Cwv34EV8+YQke8FLYKo++/5QA"+
-    "IuQ88tD8qD7F+S4VExI0av/SeuWyCArkre2shN6s+r6FcLatdB+fPU3TBwAVzZMB"+
-    "ymdx+XNmpEf85TnCcbFcx6UIM3KgsGvl5+ot4XZDU0z3BJ1hFvNt19LOqRHTUnV4"+
-    "yK3n5HxnpOsexWjmeQo7zAI7mNjryZ2sUmfFlHvfq0YaomsjnFntaSIx1USanbbz"+
-    "cLFIisxYrXaW1pJVtgZDT2SQX27lRRebPd1fvgcruvd2ljwG8jga7CeJOzL+Sv2A"+
-    "YZt+tjVaz01O0p97QUsZRoCkw6N8M8XW0PKgvKF3T0Q5R4nOabhwwWU5W4+Ey2QD"+
-    "KdvtlTb7UbFqqV9l5wckMK8mtxy9Tm79bFdQll2Z4BVWii/9p/gNbUT3jGGTCnyE"+
-    "hCL1FEj3iIig49d3O0hfRcGaVeHYeqc41DLcjTMUdyf2TdpqNWk3OY5He7b3QSZZ"+
-    "smYp6gD4i60qa6Js5KuV6xKftt84B8Vc0XY="+
-    "-----END CERTIFICATE-----";
 
     private String mLogFile;
     private String mAppDir;
@@ -245,23 +215,6 @@ public class CharonVpnService extends VpnService implements Runnable, VpnStateSe
         }
     }
 
-    public static X509Certificate convertToX509Cert(String certificateString) throws CertificateException {
-        X509Certificate certificate = null;
-        CertificateFactory cf = null;
-        try {
-            if (certificateString != null && !certificateString.trim().isEmpty()) {
-                certificateString = certificateString.replace("-----BEGIN CERTIFICATE-----\n", "")
-                        .replace("-----END CERTIFICATE-----", ""); // NEED FOR PEM FORMAT CERT STRING
-                byte[] certificateData = Base64.getDecoder().decode(certificateString);
-                cf = CertificateFactory.getInstance("X509");
-                certificate = (X509Certificate) cf.generateCertificate(new ByteArrayInputStream(certificateData));
-            }
-        } catch (CertificateException e) {
-            throw new CertificateException(e);
-        }
-        return certificate;
-    }
-
     @Override
     public void run() {
         while (true) {
@@ -285,7 +238,7 @@ public class CharonVpnService extends VpnService implements Runnable, VpnStateSe
                         /* store this in a separate (volatile) variable to avoid
                          * a possible deadlock during deinitialization */
                         mCurrentCertificateAlias = mCurrentProfile.getCertificateAlias();
-                        mCurrentUserCertificateAlias = "Lunar VPN";
+                        mCurrentUserCertificateAlias = mCurrentProfile.getUserCertificateAlias();
 
                         startConnection(mCurrentProfile);
                         mIsDisconnecting = false;
@@ -654,9 +607,9 @@ public class CharonVpnService extends VpnService implements Runnable, VpnStateSe
         ArrayList<byte[]> certs = new ArrayList<byte[]>();
         TrustedCertificateManager certman = TrustedCertificateManager.getInstance().load();
         try {
-            String alias = "Lunar VPN";
+            String alias = this.mCurrentCertificateAlias;
             if (alias != null) {
-                X509Certificate cert = convertToX509Cert(CERT_STRING);//certman.getCACertificateFromAlias(alias);
+                X509Certificate cert = certman.getCACertificateFromAlias(alias);
                 if (cert == null) {
                     return null;
                 }
@@ -687,7 +640,7 @@ public class CharonVpnService extends VpnService implements Runnable, VpnStateSe
      */
     private byte[][] getUserCertificate() throws KeyChainException, InterruptedException, CertificateEncodingException {
         ArrayList<byte[]> encodings = new ArrayList<byte[]>();
-        X509Certificate[] chain = {convertToX509Cert(CERT_STRING)};
+        X509Certificate[] chain = KeyChain.getCertificateChain(getApplicationContext(), mCurrentUserCertificateAlias);
         if (chain == null || chain.length == 0) {
             return null;
         }
